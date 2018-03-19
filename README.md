@@ -4,7 +4,7 @@ This is my MyReads solution. Follow the instructions below to install the packag
 
 ## TL;DR
 
-To get started developing right away:
+To install and review this project clone the repo the complete the following steps.
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
