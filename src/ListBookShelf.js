@@ -1,11 +1,9 @@
 import React from 'react'
 import Book from './Book'
 
-class ListBookShelf extends React.Component {
+const ListBookShelf = (props) => {
  
-  render () {
-    const shelf = this.props.shelf
-    const books = this.props.books
+    const {books, shelf, onChangeShelf} = props
     const filteredBooks = books.filter( item => item.shelf.toLowerCase() === shelf.replace(/\s/g, '').toLowerCase())
              
            
@@ -21,7 +19,7 @@ class ListBookShelf extends React.Component {
                   book={book}
                   shelf={shelf}
                   key={book.id}
-                  onChangeShelf={this.props.onChangeShelf}
+                  onChangeShelf={onChangeShelf}
                 />
               )}
             )}
@@ -30,6 +28,5 @@ class ListBookShelf extends React.Component {
         </div> 
       )
    } 
-}
 
 export default ListBookShelf

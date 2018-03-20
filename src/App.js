@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import './App.css'
 import ListBookShelf from './ListBookShelf'
 import SearchBooks from './SearchBooks'
+import './App.css'
 
 
 class BooksApp extends React.Component {
@@ -21,19 +21,13 @@ class BooksApp extends React.Component {
     }
 
     // code from slack used in this method
-    onChangeShelf = (item, newShelf) => {
-        BooksAPI.update(item, newShelf).then(result => {
-           this.setState(previousState => {
-             const newState = previousState; //output is an array
-             // console.log('this is the new state' + JSON.stringify(newState));
-             // filter the newState array and get the id of the book to move
-             const chosenBookToMove = newState.books.filter(book => book.id === item.id);
-             // console.log('chosen book' + JSON.stringify(chosenBookToMove));
-             //grab the shelf property, this is the new shelf where the book will go
-             chosenBookToMove[0].shelf = newShelf;
-             return ({ books: newState.books })
-           });
-    });
+    onChangeShelf = (book, value) => {
+        BooksAPI.update(book, value).then(() => {
+            book.shelf = value
+            this.setState(state => ({
+                books: state.books.filter(b => b.id !== book.id).concat(book)
+            }))
+        })
     }
 
       // Use the BooksAPI getAll method to get all the books on load
@@ -45,6 +39,8 @@ class BooksApp extends React.Component {
     };
 
     render() {
+        const {books} = this.state
+
         return ( 
             <div className="app" > 
             <Route path="/search" render={() => (
@@ -63,7 +59,7 @@ class BooksApp extends React.Component {
                             <ListBookShelf 
                                 shelf={shelf} 
                                 key={shelf}
-                                books={this.state.books}
+                                books={books}
                                 onChangeShelf={this.onChangeShelf}
                             /> 
 

@@ -1,20 +1,17 @@
 import React from 'react'
 
-
 class Book extends React.Component {
-
-
-
-
+ 
    render () {
-   	
+	console.log(' BOOKS PROPS ', this.props)
+
   	const book = this.props.book
-  	const shelfFunction = this.props.onChangeShelf
+	const shelfFunction = this.props.onChangeShelf
 
   	function changeShelf (event) {
    		shelfFunction(book, event.target.value)
   	}
-
+ 
     return (
 	 	<li key={ book.id }>
 		    <div className="book">
