@@ -1,12 +1,12 @@
 import React from 'react'
 
 class Book extends React.Component {
- 
+
    render () {
-	console.log(' BOOKS PROPS ', this.props)
 
   	const book = this.props.book
 	const shelfFunction = this.props.onChangeShelf
+	const imageNotFound = '../icons/image-not-found.gif'
 
   	function changeShelf (event) {
    		shelfFunction(book, event.target.value)
@@ -16,7 +16,7 @@ class Book extends React.Component {
 	 	<li key={ book.id }>
 		    <div className="book">
 		    <div className="book-top">
-		    <div className="book-cover" style={ { width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` } }> </div> 
+		    <div className="book-cover" style={ { width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : imageNotFound})` } }> </div> 
 		    <div className="book-shelf-changer">
 		      <select onChange={changeShelf}
 		         value={book.shelf}>}
@@ -30,8 +30,17 @@ class Book extends React.Component {
 		    </div> 
 		    </div> 
 		    <div className="book-title"> { book.title } </div> 
-		    <div className="book-authors">  { book.authors } </div> 
+		    <div className="book-authors">  
+			    {(book.authors) ? 
+			    	<span>
+	    				{book.authors.map((author) => (
+	        				<div key={author}>{author}</div>
+	    				))}
+					</span>
+					: <span> Author not found </span>
+				}
 		    </div> 
+		    </div>
 	  	</li>
 
     	)

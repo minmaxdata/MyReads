@@ -14,7 +14,6 @@ const ListBookShelf = (props) => {
             <ol className="books-grid">
               {filteredBooks.map(book => {
               return (
-
                 <Book
                   book={book}
                   shelf={shelf}

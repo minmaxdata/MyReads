@@ -14,6 +14,7 @@ class SearchBooks extends Component {
   updateQuery = (query) => {  
     this.setState({ query: query.trim() })
   }
+
   searchBook = (query) => {
     this.updateQuery(query);
     if (query) {
@@ -32,7 +33,7 @@ class SearchBooks extends Component {
   }
 
 render () {
-	return (
+ 	return (
 		<div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
