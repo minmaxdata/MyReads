@@ -32,8 +32,13 @@ class SearchBooks extends Component {
     }
   }
 
+  changeShelf = () => {
+    console.log(' change shelf search', this.props)
+
+  }
 render () {
- 	return (
+
+  	return (
 		<div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
@@ -53,7 +58,7 @@ render () {
                 book={book}
                 key={book.id}
                 shelf={book.shelf}
-                onChangeShelf={this.props.onChangeShelf}
+                onChangeShelf={this.changeShelf}
               />
             ))}
 
