@@ -12,7 +12,6 @@ class BooksApp extends React.Component {
     }
 
     onChangeShelf = (book, value) => {
-        console.log(' homepage on change self ', book, value)
         BooksAPI.update(book, value).then(() => {
             book.shelf = value
             this.setState(state => ({
