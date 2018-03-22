@@ -8,7 +8,6 @@ import './App.css'
 
 class BooksApp extends React.Component {
     state = {
-        showSearchPage: false,
         books:[]
     }
 
@@ -35,37 +34,33 @@ class BooksApp extends React.Component {
 
         return ( 
             <div className="app" > 
-            <Route path="/search" render={() => (
-                <SearchBooks books={books} onChangeShelf={this.onChangeShelf}/ >
-             )}/>
-
-            <Route exact path="/" render={() => (
-
-                <div className="list-books">
-                    <div className="list-books-title">
-                        <h1> MyReads </h1> 
-                    </div> 
-                    <div className="list-books-content">
-                        <div> 
-                        {["Currently Reading", "Want to Read", "Read"].map(shelf => 
-                            <ListBookShelf 
-                                shelf={shelf} 
-                                key={shelf}
-                                books={books}
-                                onChangeShelf={this.onChangeShelf}
-                            /> 
-
-                        )}
-                        
+                 <Route path="/search" render={() => (
+                    <SearchBooks books={books} assignShelf={this.onChangeShelf}/ >
+                 )}/>
+                <Route exact path="/" render={() => (
+                    <div className="list-books">
+                        <div className="list-books-title">
+                            <h1> MyReads </h1> 
                         </div> 
-                    </div> 
-                    <div className="open-search" >
-                        <Link to="/search">Add a book</Link>
-                    </div> 
-                </div>
-                )
-            } />
-            </div>
+                        <div className="list-books-content">
+                            {["Currently Reading", "Want to Read", "Read"].map(shelf => 
+                                <ListBookShelf 
+                                    shelf={shelf} 
+                                    key={shelf}
+                                    books={books}
+                                    onChangeShelf={this.onChangeShelf}
+                                /> 
+
+                            )}
+
+                        </div> 
+                        <div className="open-search" >
+                            <Link to="/search">Search books</Link>
+                        </div> 
+                    </div>
+
+                  )}/>
+        </div>
         )
     }
 }

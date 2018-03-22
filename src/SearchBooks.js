@@ -9,7 +9,7 @@ class SearchBooks extends Component {
   state = {
     query: '',
     books: []
-  }
+   }
 
   updateQuery = (query) => {  
     this.setState({ query: query.trim() })
@@ -32,10 +32,6 @@ class SearchBooks extends Component {
     }
   }
 
-  changeShelf = () => {
-    console.log(' change shelf search', this.props)
-
-  }
 render () {
 
   	return (
@@ -57,8 +53,7 @@ render () {
               <Book
                 book={book}
                 key={book.id}
-                shelf={book.shelf}
-                onChangeShelf={this.changeShelf}
+                onChangeShelf={this.props.assignShelf}
               />
             ))}
 

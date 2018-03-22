@@ -16,7 +16,7 @@ const ListBookShelf = (props) => {
               return (
                 <Book
                   book={book}
-                  shelf={shelf}
+                  shelf={book.shelf}
                   key={book.id}
                   onChangeShelf={onChangeShelf}
                 />

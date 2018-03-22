@@ -3,11 +3,9 @@ import React from 'react'
 class Book extends React.Component {
 
   	handleChange(event) {
-
-  		console.log(' HANDLE CHNG ', this.props.book, event.target.value)
-     // Update UI with book's new shelf
+       	this.props.book.shelf = event.target.value
     	this.props.onChangeShelf(this.props.book, event.target.value);
-	}
+	 }
 
    render () {
   	const book = this.props.book
@@ -44,7 +42,7 @@ class Book extends React.Component {
 		    </div>
 	  	</li>
 
-    	)
+	)
    } 
  }
 
