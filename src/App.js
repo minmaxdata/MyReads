@@ -14,9 +14,11 @@ class BooksApp extends React.Component {
     onChangeShelf = (book, value) => {
         BooksAPI.update(book, value).then(() => {
             book.shelf = value
-            this.setState(state => ({
-                books: state.books.filter(b => b.id !== book.id).concat(book)
-            }))
+            if(value !== 'none') {
+                this.setState(state => ({
+                    books: state.books.filter(b => b.id !== book.id).concat(book)
+                }))
+            }
         })
     }
 
@@ -34,7 +36,7 @@ class BooksApp extends React.Component {
         return ( 
             <div className="app" > 
                  <Route path="/search" render={() => (
-                    <SearchBooks books={books} assignShelf={this.onChangeShelf}/ >
+                    <SearchBooks assignedBooks={books} assignShelf={this.onChangeShelf}/ >
                  )}/>
                 <Route exact path="/" render={() => (
                     <div className="list-books">

@@ -8,27 +8,38 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooks extends Component {
   state = {
     query: '',
-    books: []
+    searchResults:[]
    }
 
   updateQuery = (query) => {  
     this.setState({ query: query.trim() })
   }
 
+  assignShelf = (items) => {
+      items.map(book => {
+        this.props.assignedBooks.filter( b => {
+          if (b.id === book.id) {
+            console.log(b.shelf)
+          }
+        })
+      })
+    }
   searchBook = (query) => {
     this.updateQuery(query);
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (!books.error) {
+          this.assignShelf(books)
+         
            this.setState({
-            books
+            searchResults: books
           })
         } else {
-          this.setState({books: []});
+          this.setState({searchResults: []});
         }
       })
     } else {
-      this.setState({books: []});
+      this.setState({searchResults: []});
     }
   }
 
@@ -49,13 +60,14 @@ render () {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {this.state.books.map(book => (
+          {this.state.searchResults.map(book => (
               <Book
                 book={book}
                 key={book.id}
+                shelf={book.shelf ? book.shelf : 'none'}
                 onChangeShelf={this.props.assignShelf}
               />
-            ))}
+             ))}
 
           </ol>
         </div>
