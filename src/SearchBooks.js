@@ -16,23 +16,25 @@ class SearchBooks extends Component {
   }
 
   assignShelf = (items) => {
-      items.map(book => {
-        this.props.assignedBooks.filter( b => {
-          if (b.id === book.id) {
-            console.log(b.shelf)
-          }
-        })
-      })
-    }
+    items.map(book => {
+      const match = this.props.assignedBooks.filter( b => book.id === b.id)
+      if (match.length > 0){
+        book.shelf = match[0].shelf
+       } else {
+        book.shelf = 'none'
+      }
+      return match
+    })
+    return items
+  }
   searchBook = (query) => {
     this.updateQuery(query);
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (!books.error) {
-          this.assignShelf(books)
-         
+          const shelvedBooks = this.assignShelf(books)
            this.setState({
-            searchResults: books
+            searchResults: shelvedBooks
           })
         } else {
           this.setState({searchResults: []});
@@ -64,7 +66,7 @@ render () {
               <Book
                 book={book}
                 key={book.id}
-                shelf={book.shelf ? book.shelf : 'none'}
+                shelf={book.shelf}
                 onChangeShelf={this.props.assignShelf}
               />
              ))}
