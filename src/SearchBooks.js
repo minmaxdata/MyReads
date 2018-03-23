@@ -15,9 +15,9 @@ class SearchBooks extends Component {
     this.setState({ query: query.trim() })
   }
 
-  assignShelf = (items) => {
+  assignShelf = (items, shelvedBooks) => {
     items.map(book => {
-      const match = this.props.assignedBooks.filter( b => book.id === b.id)
+      const match = shelvedBooks.filter( b => book.id === b.id)
       if (match.length > 0){
         book.shelf = match[0].shelf
        } else {
@@ -27,14 +27,14 @@ class SearchBooks extends Component {
     })
     return items
   }
-  
+
   searchBook = (query) => {
     this.updateQuery(query);
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (!books.error) {
            this.setState({
-            searchResults: this.assignShelf(books)
+            searchResults: this.assignShelf(books, this.props.assignedBooks)
           })
         } else {
           this.setState({searchResults: []});
