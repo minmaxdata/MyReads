@@ -27,14 +27,14 @@ class SearchBooks extends Component {
     })
     return items
   }
+  
   searchBook = (query) => {
     this.updateQuery(query);
     if (query) {
       BooksAPI.search(query).then((books) => {
         if (!books.error) {
-          const shelvedBooks = this.assignShelf(books)
            this.setState({
-            searchResults: shelvedBooks
+            searchResults: this.assignShelf(books)
           })
         } else {
           this.setState({searchResults: []});
